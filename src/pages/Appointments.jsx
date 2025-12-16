@@ -39,6 +39,7 @@ export default function Appointments() {
 
   useEffect(() => {
     fetchAppointments();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination.currentPage, statusFilter]);
 
   useEffect(() => {
@@ -57,6 +58,7 @@ export default function Appointments() {
     setSearchTimeout(timeout);
 
     return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
   const fetchAppointments = async () => {

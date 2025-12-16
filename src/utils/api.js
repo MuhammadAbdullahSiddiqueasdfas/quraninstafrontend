@@ -216,7 +216,7 @@ export const adminAPI = {
   getAppointments: async (params = {}) => {
     const queryString = new URLSearchParams(
       Object.fromEntries(
-        Object.entries(params).filter(([_, value]) => value !== undefined && value !== null && value !== '')
+        Object.entries(params).filter(([, value]) => value !== undefined && value !== null && value !== '')
       )
     ).toString();
     const response = await api.get(`/admin/appointments${queryString ? `?${queryString}` : ''}`);

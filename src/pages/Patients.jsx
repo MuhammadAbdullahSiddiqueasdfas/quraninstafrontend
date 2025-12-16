@@ -27,6 +27,7 @@ export default function Patients() {
 
   useEffect(() => {
     fetchPatients();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination.currentPage]);
 
   useEffect(() => {
@@ -45,6 +46,7 @@ export default function Patients() {
     setSearchTimeout(timeout);
 
     return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
   const fetchPatients = async () => {

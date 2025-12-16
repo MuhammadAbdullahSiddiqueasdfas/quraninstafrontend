@@ -35,7 +35,11 @@
 ## Deployment Steps
 1. Run `npm run build` to create production build
 2. Upload `dist/` folder to your hosting service
-3. Configure your hosting to serve the SPA correctly
+ 3. If you deploy the app under a subpath (for example `https://example.com/Quraninstasnap/`), set the build base before running `npm run build`:
+	 - Unix/macOS: `VITE_BASE_PATH=/Quraninstasnap npm run build`
+	 - Windows (PowerShell): `$env:VITE_BASE_PATH='/Quraninstasnap'; npm run build`
+ 4. If you deploy at the domain root (for example `https://example.com/`), do not set `VITE_BASE_PATH` (default is `/`).
+ 5. Make sure your hosting serves the contents of `dist/` (not the repository root) so the built assets are available and asset paths resolve correctly.
 4. Ensure backend is deployed and accessible at https://quraninstasnap.onrender.com
 
 ## Testing Production

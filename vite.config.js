@@ -1,9 +1,14 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 
-export default defineConfig({
-  plugins: [react()],
-  base:process.env.VITE_BASE_PATH || "/Quraninstasnap",     
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  
+  return {
+    plugins: [react()],
+    // Use VITE_BASE_PATH to support deploying under a subpath (e.g. /Quraninstasnap)
+    // Default to root ("/") so assets resolve correctly when deploying at the domain root.
+    base: env.VITE_BASE_PATH || "/",
   server: {
     proxy: {
       '/api': {
@@ -29,6 +34,7 @@ export default defineConfig({
     port: 4173,
     host: true
   }
+};
 })
 
 
