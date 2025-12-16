@@ -1,0 +1,627 @@
+/* admin-panel/src/components/Navbar.css - Enhanced with Logout Modal */
+
+.navbar {
+  background: white;
+  border-bottom: 1px solid var(--gray-200);
+  padding: 0 var(--space-6);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.02);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  backdrop-filter: blur(20px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%);
+}
+
+.navbar::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(3, 105, 161, 0.1) 20%, 
+    rgba(3, 105, 161, 0.1) 80%, 
+    transparent 100%);
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* Mobile Menu Toggle - Only visible on mobile/tablet */
+.mobile-menu-toggle {
+  background: white;
+  border: 1px solid var(--gray-200);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: none; /* Hidden by default on desktop */
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.mobile-menu-toggle:hover {
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  border-color: #7dd3fc;
+  color: #0369a1;
+  box-shadow: 0 2px 6px rgba(3, 105, 161, 0.15);
+  transform: scale(1.05);
+}
+
+.mobile-menu-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Show mobile toggle only on mobile/tablet */
+@media (max-width: 1023px) {
+  .mobile-menu-toggle {
+    display: flex;
+  }
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  transition: transform 0.2s ease;
+  padding: var(--space-2) 0;
+}
+
+.navbar-brand:hover {
+  transform: translateX(2px);
+}
+
+.brand-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.3s ease;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+  padding: var(--space-2);
+}
+
+.brand-icon::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--radius-lg) + 2px);
+  background: linear-gradient(135deg, rgba(3, 105, 161, 0.15), rgba(7, 89, 133, 0.05));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.navbar-brand:hover .brand-icon::before {
+  opacity: 1;
+}
+
+.brand-icon svg {
+  stroke: #0369a1;
+  filter: drop-shadow(0 2px 6px rgba(3, 105, 161, 0.25));
+  transition: all 0.3s ease;
+}
+
+.navbar-brand:hover .brand-icon {
+  background: linear-gradient(135deg, #bae6fd, #e0f2fe);
+  transform: rotate(-5deg) scale(1.05);
+}
+
+.navbar-brand:hover .brand-icon svg {
+  filter: drop-shadow(0 4px 8px rgba(3, 105, 161, 0.35));
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.brand-text h1 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin: 0;
+  letter-spacing: -0.025em;
+  background: linear-gradient(135deg, #0f172a 0%, #334155 50%, #0369a1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.brand-text span {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.admin-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-lg);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  border: 1px solid transparent;
+}
+
+.admin-info:hover {
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.3), rgba(240, 249, 255, 0.2));
+  border-color: rgba(3, 105, 161, 0.1);
+  box-shadow: 0 2px 8px rgba(3, 105, 161, 0.08);
+}
+
+.admin-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+  padding: 2px;
+  transition: all 0.3s ease;
+}
+
+.admin-avatar::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0369a1, #0284c7);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.admin-info:hover .admin-avatar::before {
+  opacity: 0.2;
+}
+
+.avatar-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0369a1, #075985);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.admin-info:hover .avatar-inner::before {
+  opacity: 1;
+}
+
+.admin-info:hover .admin-avatar {
+  transform: scale(1.05);
+}
+
+.admin-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.admin-name {
+  font-weight: 600;
+  color: var(--gray-900);
+  font-size: 0.875rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+.admin-role {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  line-height: 1.2;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.logout-button {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: white;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.25), 0 1px 2px rgba(220, 38, 38, 0.1);
+  position: relative;
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  height: 40px;
+}
+
+.logout-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.logout-button:hover {
+  background: linear-gradient(135deg, #b91c1c, #991b1b);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35), 0 2px 4px rgba(220, 38, 38, 0.2);
+  transform: translateY(-1px);
+}
+
+.logout-button:hover::before {
+  left: 100%;
+}
+
+.logout-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.logout-button svg {
+  transition: transform 0.2s ease;
+}
+
+.logout-button:hover svg {
+  transform: translateX(2px);
+}
+
+/* ===== Logout Modal Styles ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 440px;
+  width: 100%;
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+}
+
+.modal-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+}
+
+.modal-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fecaca, #fca5a5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dc2626;
+  flex-shrink: 0;
+}
+
+.modal-header h2 {
+  flex: 1;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #1f2937;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-body p {
+  color: #374151;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin: 0 0 0.75rem 0;
+  font-weight: 500;
+}
+
+.modal-subtitle {
+  color: #6b7280;
+  font-size: 0.875rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.modal-footer {
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  background: #f9fafb;
+}
+
+.modal-btn {
+  padding: 0.625rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+}
+
+.modal-btn.cancel {
+  background: white;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.modal-btn.cancel:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.modal-btn.confirm {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: white;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.25);
+}
+
+.modal-btn.confirm:hover {
+  background: linear-gradient(135deg, #b91c1c, #991b1b);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35);
+  transform: translateY(-1px);
+}
+
+.modal-btn.confirm:active {
+  transform: translateY(0);
+}
+
+/* Modal Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile responsive design */
+@media (max-width: 1023px) {
+  .navbar {
+    padding: 0 var(--space-4);
+  }
+  
+  .brand-text span {
+    display: none;
+  }
+  
+  .admin-details {
+    display: none;
+  }
+  
+  .admin-info {
+    padding: var(--space-1);
+  }
+  
+  .logout-button {
+    padding: var(--space-2);
+    min-width: 40px;
+    justify-content: center;
+  }
+  
+  .logout-button span {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar {
+    padding: 0 var(--space-3);
+  }
+  
+  .navbar-left {
+    gap: var(--space-3);
+  }
+  
+  .navbar-right {
+    gap: var(--space-2);
+  }
+  
+  .brand-text h1 {
+    font-size: 1.25rem;
+  }
+  
+  .brand-icon {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .brand-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .admin-avatar {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .avatar-inner {
+    font-size: 0.875rem;
+  }
+
+  .modal-container {
+    max-width: 100%;
+    margin: 1rem;
+  }
+
+  .modal-footer {
+    flex-direction: column-reverse;
+  }
+
+  .modal-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Focus states for accessibility */
+.admin-info:focus-visible,
+.logout-button:focus-visible,
+.modal-close:focus-visible,
+.modal-btn:focus-visible {
+  outline: 2px solid #0369a1;
+  outline-offset: 2px;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .navbar {
+    border-bottom: 2px solid var(--gray-900);
+    background: white;
+  }
+  
+  .navbar::after {
+    display: none;
+  }
+  
+  .admin-info {
+    border: 2px solid var(--gray-900);
+  }
+  
+  .admin-avatar {
+    background: var(--gray-900);
+    border: 2px solid var(--gray-900);
+  }
+  
+  .logout-button {
+    background: var(--gray-900);
+    border: 2px solid var(--gray-900);
+  }
+
+  .modal-container {
+    border: 2px solid var(--gray-900);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .navbar-brand,
+  .admin-info,
+  .logout-button,
+  .brand-icon,
+  .admin-avatar,
+  .avatar-inner::before,
+  .brand-icon::before,
+  .admin-avatar::before,
+  .modal-overlay,
+  .modal-container {
+    animation: none;
+    transition: none;
+  }
+  
+  .navbar-brand:hover,
+  .logout-button:hover,
+  .admin-info:hover .admin-avatar,
+  .navbar-brand:hover .brand-icon {
+    transform: none;
+  }
+}

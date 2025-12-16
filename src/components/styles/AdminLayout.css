@@ -1,0 +1,224 @@
+/* admin-panel/src/components/AdminLayout.css - Fixed Layout with Collapsible Sidebar */
+
+.admin-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f7f8;
+  position: relative;
+}
+
+.admin-content {
+  display: flex;
+  flex: 1;
+  position: relative;
+  padding-top: 64px; /* Account for fixed navbar */
+}
+
+.admin-main {
+  flex: 1;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  background-color: #f7f7f8;
+  min-height: calc(100vh - 64px);
+  width: 100%;
+}
+
+.main-content {
+  padding: var(--space-8);
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+  min-height: calc(100vh - 64px);
+}
+
+/* Content area with subtle background pattern */
+.main-content::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  top: 64px;
+  background-image: 
+    radial-gradient(circle at 1px 1px, #e4e6ea 1px, transparent 0);
+  background-size: 24px 24px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Sidebar overlay for mobile */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  top: 64px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 998;
+  transition: opacity 0.3s ease;
+  display: none;
+}
+
+/* Desktop layout adjustments */
+@media (min-width: 1024px) {
+  /* Expanded sidebar state */
+  .admin-main {
+    margin-left: 280px;
+  }
+  
+  /* Collapsed sidebar state */
+  .admin-main.sidebar-collapsed {
+    margin-left: 80px;
+  }
+  
+  .sidebar-overlay {
+    display: none !important;
+  }
+}
+
+/* Tablet layout */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .main-content {
+    padding: var(--space-6);
+  }
+  
+  .admin-main {
+    margin-left: 0;
+  }
+  
+  .sidebar-overlay {
+    display: block;
+  }
+}
+
+/* Mobile layout */
+@media (max-width: 767px) {
+  .main-content {
+    padding: var(--space-4);
+  }
+  
+  .admin-main {
+    margin-left: 0;
+  }
+  
+  .sidebar-overlay {
+    display: block;
+  }
+  
+  /* Adjust content spacing on mobile */
+  .main-content::before {
+    background-size: 16px 16px;
+    opacity: 0.2;
+  }
+}
+
+/* Enhanced scrolling experience */
+.admin-main {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.admin-main::-webkit-scrollbar {
+  width: 6px;
+}
+
+.admin-main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.admin-main::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 3px;
+}
+
+.admin-main::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Focus management for accessibility */
+.admin-layout:focus-within .sidebar-overlay {
+  z-index: 999;
+}
+
+/* Loading state */
+.admin-layout.loading .main-content {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.admin-layout.loading .main-content::after {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e4e6ea;
+  border-top-color: #0369a1;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  z-index: 1000;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Smooth transitions for layout changes */
+.admin-layout * {
+  box-sizing: border-box;
+}
+
+/* Print styles */
+@media print {
+  .sidebar-overlay,
+  .admin-nav,
+  .navbar {
+    display: none !important;
+  }
+  
+  .admin-main {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+  
+  .main-content {
+    padding: 0 !important;
+    max-width: none !important;
+  }
+  
+  .main-content::before {
+    display: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .main-content::before {
+    display: none;
+  }
+  
+  .sidebar-overlay {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: none;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .admin-main,
+  .sidebar-overlay {
+    transition: none;
+  }
+  
+  .admin-layout.loading .main-content::after {
+    animation: none;
+    border: 3px solid #0369a1;
+  }
+}
